@@ -1,0 +1,123 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// corner point (0.004, 0.00161,0)
+// corner point (0.004, 0.00150,0)
+// corner point (0.00527, 0.00161,0)
+// corner point (0.00527, 0.00150,0)
+actions
+(
+    {
+        name    c0;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0037 0.00157 -1)(0.0055 0.0017 1);
+        }
+    }
+	
+    {
+        name    c1;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0038 0.00159 -1)(0.0054 0.00165 1);
+        }
+    }
+
+    {
+        name    c2;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0039 0.00160 -1)(0.0053 0.00162 1);
+        }
+    }
+
+    {
+        name    c3;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0038 0.00149 -1)(0.0054 0.00152 1);
+        }
+    }
+
+    {
+        name    c4;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0039 0.00149 -1)(0.0053 0.00151 1);
+        }
+    }
+
+/*
+   {
+        name    c5;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.01518 0.0005 -1)(0.01525 0.000515 1);
+        }
+    }
+
+   {
+        name    c6;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.0152 0.000502 -1)(0.01523 0.000510 1);
+        }
+    }
+    {
+        name    c7;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.015205 0.000505 -1)(0.01522 0.000509 1);
+        }
+    }
+    {
+        name    c8;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.015208 0.000506 -1)(0.015214 0.000508 1);
+        }
+    }
+*/
+);
+
+// ************************************************************************* //

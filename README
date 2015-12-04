@@ -1,0 +1,118 @@
+This python script is written to convert OpenFOAM mesh to nek5000 element mesh.
+For information about OpenFOAM, please visit http://www.openfoam.com/
+For information about nek5000, please visit http://press3.mcs.anl.gov/nek5000/
+=========================================================================================
+Notes:
+Mesh in OpenFOAM is conventional CFD mesh. Operation is performed on each cell. 
+However, in nek5000, each cell is actually an element. And in each element, nek5000 
+will distribute chebyshev polynomials to solve N-S equations. As a result, the element 
+in nek5000 is contains hundreds of cells in conventional CFD definition. 
+
+Nek5000 only accept hex element. As a result, the cell in OpenFOAM must also be hex cell.
+However, for each hex cell, OpenFOAM only has the information on 8 vertices. That is to say,
+in OpenFOAM, hex cell in is the format of hex8. 
+=========================================================================================
+Author: Haomin Yuan, 
+Post doctoral at Argonne National Laboratory, Nuclear Engineering Division.
+hyuan@anl.gov
+
+Start: 10/30/2015
+End: 12/2/2015
+=========================================================================================
+Files:
+
+foamToNek.py			: main function, setting openfoam case and nek case path.
+geoElement.py			: difinition of geometry element like points,faces,cells, etc.
+arrayConstructor.py		: read openfoam mesh and construct arrays for geometry elements.
+reaWriter.py			: write element information into .rea file. 
+
+=========================================================================================
+OpenFOAM mesh structure:
+All mesh information is stored in five files in OpenFOAM:
+1. points, it contains all vertices location for each cell
+2. faces, it contains the index number of vertices for each face
+3. owners, faceID point to face owner cell id
+4. neighbour, faceID point to face neighbour cell id
+5. boundary, it tells the start face number and number of faces for each boundary patch.
+
+For more information about mesh structure in OpenFOAM.
+Please refer to OpenFOAM user guide, or <The OpenFOAM Technology Primer>
+=========================================================================================
+Usage:
+To properly use this cript, there are several steps:
+
+1. After your OpenFOAM mesh is contructed, change the boundary condition settings in boundary file,
+which you could find in YOUR_OPENFOAM_CASE/constant/polyMesh/boundary
+
+here is a example of unchanged bounadry file 
+ 
+ wall
+    {
+        type            wall;
+        nFaces          2400;
+        startFace       88300;
+    }
+    inlet
+    {
+        type            patch;
+        nFaces          500;
+        startFace       90700;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          500;
+        startFace       91200;
+    }
+
+Because foamToNek will read the boundary condition type in this file. Please change the boundary file to:
+
+  wall
+    {
+        type            W;
+        nFaces          2400;
+        startFace       88300;
+    }
+    inlet
+    {
+        type            v;
+        nFaces          500;
+        startFace       90700;
+    }
+    outlet
+    {
+        type            O;
+        nFaces          500;
+        startFace       91200;
+    }
+
+the 'W','v','O' are the keywords that accept by nek5000 for boundary setting. 
+For more options abour boundary conditions, please refer to nek5000 manual. 
+
+2. in foamToNek.py there are several string variables should be changed.
+change:
+polymesh = 'YOUR_OPENFOAM_CASE/constant/polyMesh/'
+nekCase = 'YOUR_NEK_CASE'
+reaFile = nekCase + 'YOUR_ORG_REA'
+newReaFile = nekCase + 'NEW_REA'
+
+3. excute python script by
+python foamToNek.py
+
+=========================================================================================\
+Test cases:
+There are two cases have been tested using the mesh converted from openfoam.
+3dbox and pipe.
+folder foamBox and foamPipe contains the openfoam mesh for box and pipe. 
+
+new* files in 3dbox and pipe folder are mesh converted from openFOAM.
+genmap is ok.
+And running nek case is ok. 
+
+=========================================================================================
+Limitations:
+1. Only hex8 element could be constructed. This means if geometry curvature is siginificant,
+the conversion may not good. 
+2. If the total cell number in OpenFOAM is too large, it will takes a long time for python to 
+read through all files. For exampole, for 30,000 cells, the conversion takes 10 mins. 
+3. No thermal boundary condition is considered now, but could be implemented by request. 

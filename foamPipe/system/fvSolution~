@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-08;
+        relTol          0.1;
+        smoother        GaussSeidel;
+        nPreSweeps      2;
+        nPostSweeps     2;
+        nFinestSweeps   2;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 20;
+        agglomerator    faceAreaPair;
+        mergeLevels     2;
+	//cacheAgglomeration on;
+    }
+    "(U|h|k|epsilon|omega)"
+    {
+        solver          GAMG;
+        tolerance       1e-08;
+        relTol          0.1;
+        smoother        GaussSeidel;
+        nPreSweeps      2;
+        nPostSweeps     2;
+        nFinestSweeps   2;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 20;
+        agglomerator    faceAreaPair;
+        mergeLevels     2;
+	//cacheAgglomeration on;
+    }
+ 
+}
+
+SIMPLE
+{
+    nNonOrthogonalCorrectors 5;
+    rhoMin          rhoMin [1 -3 0 0 0] 10.0;
+    rhoMax          rhoMax [1 -3 0 0 0] 800.0;
+    kappaMin          kappaMin [1 1 -3 -1 0 0 0] 0.01;
+    kappaMax          kappaMax [1 1 -3 -1 0 0 0] 10.0;
+    mu_user	    mu_user [1 -1 -1 0 0] 0;
+    transonic       no;
+    /*residualControl
+    {
+    	p		1e-7;
+	Ux		1e-7;
+	Uy		1e-7;
+	Uz		1e-7;
+	h		1e-7;
+	epsilon   	1e-7;
+	k		1e-7;    
+    }*/
+
+}
+
+relaxationFactors
+{
+    fields
+    {
+	p              0.0015625;
+	h		0.1;
+    }
+    equations
+    {
+        U               0.5;
+        h               0.5;
+        k               0.5;
+        epsilon         0.5;
+	omega		0.5;
+    }
+}
+
+// ************************************************************************* //

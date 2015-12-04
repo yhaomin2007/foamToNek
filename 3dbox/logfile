@@ -1,0 +1,60 @@
+backtrace(): obtained 11 stack frames.
+./nek5000() [0x4ebc78]
+./nek5000() [0x5a8d7c]
+./nek5000() [0x4ddf69]
+./nek5000() [0x4de685]
+./nek5000() [0x4633d2]
+./nek5000() [0x463609]
+./nek5000() [0x432f56]
+./nek5000() [0x402de5]
+./nek5000() [0x402724]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xed) [0x7f7e65bcc76d]
+./nek5000() [0x402769]
+/----------------------------------------------------------\\
+|      _   __ ______ __ __  ______  ____    ____    ____   |
+|     / | / // ____// //_/ / ____/ / __ \\ / __ \\ / __ \\ |
+|    /  |/ // __/  / ,<   /___ \\  / / / // / / // / / /   |
+|   / /|  // /___ / /| | ____/ / / /_/ // /_/ // /_/ /     |
+|  /_/ |_//_____//_/ |_|/_____/  \\____/ \\____/ \\____/   |
+|                                                          |
+|----------------------------------------------------------|
+|                                                          |
+| NEK5000:  Open Source Spectral Element Solver            |
+| COPYRIGHT (c) 2008-2010 UCHICAGO ARGONNE, LLC            |
+| Version:  1.0rc1 / SVN  r1034                            |
+| Web:      http://nek5000.mcs.anl.gov                     |
+|                                                          |
+\\----------------------------------------------------------/
+                                                              
+
+ Number of processors:           1
+ REAL    wdsize      :           8
+ INTEGER wdsize      :           4
+
+
+  Beginning session:
+  /homes/yhaomin2007/foamToNek/3dbox/new.rea                                    
+
+ 
+ timer accuracy:   0.0000000E+00 sec
+
+ read .rea file
+ nelgt/nelgv/lelt:         512         512         520
+ lx1  /lx2  /lx3 :           8           8           8
+
+ mapping elements to processors
+           0           0           0           0           0  NELV
+           0       30000           0           0           0  NELT FAIL
+ Check that .map file and .rea file agree
+           0       30000           0           0           0  NELT FB
+  
+call exitt: dying ...
+  
+  
+total elapsed time             :   1.77953E-01 sec
+total solver time incl. I/O    :   0.00000E+00 sec
+time/timestep                  :   0.00000E+00 sec
+CPU seconds/timestep/gridpt    :   0.00000E+00 sec
+
+0.10user 0.08system 0:00.18elapsed 95%CPU (0avgtext+0avgdata 96688maxresident)k
+0inputs+8outputs (0major+6170minor)pagefaults 0swaps
